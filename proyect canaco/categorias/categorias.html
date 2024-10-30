@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Mobile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background-color: #2ea44f;
+            padding: 15px;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            width: 100%;
+            margin-left: 8px;
+        }
+
+        .cart {
+            position: relative;
+            padding-right: 10px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f5b014;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .delivery-info {
+            display: flex;
+            align-items: center;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .delivery-info img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 8px;
+            object-fit: cover;
+        }
+
+        .results {
+            padding: 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .results-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .products-grid {
+            display: grid;
+            gap: 15px;
+            /* Responsive grid - mobile first */
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            padding-top: 75%; /* Ratio 4:3 */
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .msi-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 1;
+        }
+
+        .favorite {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: #999;
+            z-index: 1;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-button {
+            background: #2ea44f;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .brand {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .product-name {
+            font-size: 14px;
+            color: #666;
+            margin: 4px 0;
+            flex-grow: 1;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            background: #e6f4ea;
+            color: #1e7e34;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: auto;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border-top: 1px solid #eee;
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .product-name {
+                font-size: 12px;
+            }
+            
+            .price {
+                font-size: 16px;
+            }
+            
+            .add-button {
+                padding: 6px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                gap: 10px;
+            }
+            
+            .product-card {
+                padding: 8px;
+            }
+        }
+
+        /* Desktop view */
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            
+            .product-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+            
+            .add-button:hover {
+                background: #248f3f;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- El resto del HTML permanece igual -->
+    <div class="header">
+        <div class="search-bar">
+            <i class="fas fa-arrow-left"></i>
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Ahorro400LyE24">
+            </div>
+            <div class="cart">
+                <span class="cart-badge">1</span>
+                <span>$15.00</span>
+            </div>
+        </div>
+        <div class="delivery-info">
+            <img src="/api/placeholder/24/24" alt="Store">
+            <span>Entrega | Jose Mariano Jimenez</span>
+        </div>
+    </div>
+
+    <div class="results">
+        <h2 class="results-title">Resultados para Ahorro400LyE24 (107)</h2>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="msi-badge">MSI</span>
+                    <i class="far fa-heart favorite"></i>
+                    <img src="/imagenes/logo/logo tec 2.jpg" alt="JVC TV 85">
+                </div>
+                <button class="add-button">+ Agregar</button>
+                <div class="price">$17,499.00</div>
+                <div class="brand">JVC</div>
+                <div class="product-name">TV JVC 85 Pulgadas UHD Roku Frameless</div>
+                <span class="stock-badge">Pocas piezas</span>
+            </div>
+
+            <!-- Product 2-7 (repeated for demo) -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="msi-badge">MSI</span>
+                    <i class="far fa-heart favorite"></i>
+                    <img src="/imagenes/logo/bola2.jpg" alt="JVC TV 75">
+                </div>
+                <button class="add-button">+ Agregar</button>
+                <div class="price">$11,890.00</div>
+                <div class="brand">JVC</div>
+                <div class="product-name">TV JVC 75 Pulgadas Ultra hd 4K SI75URF</div>
+            </div>
+            <!-- Repeat product card 5 more times -->
+
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="msi-badge">MSI</span>
+                    <i class="far fa-heart favorite"></i>
+                    <img src="/imagenes/logo/bola2.jpg" alt="JVC TV 75">
+                </div>
+                <button class="add-button">+ Agregar</button>
+                <div class="price">$11,890.00</div>
+                <div class="brand">JVC</div>
+                <div class="product-name">TV JVC 75 Pulgadas Ultra hd 4K SI75URF</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="msi-badge">MSI</span>
+                    <i class="far fa-heart favorite"></i>
+                    <img src="/imagenes/logo/bola2.jpg" alt="JVC TV 75">
+                </div>
+                <button class="add-button">+ Agregar</button>
+                <div class="price">$11,890.00</div>
+                <div class="brand">JVC</div>
+                <div class="product-name">TV JVC 75 Pulgadas Ultra hd 4K SI75URF</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="msi-badge">MSI</span>
+                    <i class="far fa-heart favorite"></i>
+                    <img src="/imagenes/logo/111.png" alt="JVC TV 75">
+                </div>
+                <button class="add-button">+ Agregar</button>
+                <div class="price">$11,890.00</div>
+                <div class="brand">JVC</div>
+                <div class="product-name">TV JVC 75 Pulgadas Ultra hd 4K SI75URF</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="msi-badge">MSI</span>
+                    <i class="far fa-heart favorite"></i>
+                    <img src="/imagenes/logo/bola2.jpg" alt="JVC TV 75">
+                </div>
+                <button class="add-button">+ Agregar</button>
+                <div class="price">$11,890.00</div>
+                <div class="brand">JVC</div>
+                <div class="product-name">TV JVC 75 Pulgadas Ultra hd 4K SI75URF</div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="msi-badge">MSI</span>
+                    <i class="far fa-heart favorite"></i>
+                    <img src="/imagenes/logo/111.png" alt="JVC TV 75">
+                </div>
+                <button class="add-button">+ Agregar</button>
+                <div class="price">$11,890.00</div>
+                <div class="brand">JVC</div>
+                <div class="product-name">TV JVC 75 Pulgadas Ultra hd 4K SI75URF</div>
+            </div>
+
+
+
+
+
+
+
+
+            
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="/index/index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <div>Inicio</div>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="far fa-heart"></i>
+            <div>Tus productos</div>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-th-large"></i>
+            <div>Departamentos</div>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-th"></i>
+            <div>Servicios</div>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="far fa-user"></i>
+            <div>Cuenta</div>
+        </a>
+    </nav>
+</body>
+</html>

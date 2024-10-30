@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta-Canaco</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #2ea44f;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-brand h1 {
+            font-size: 1.5rem;
+        }
+
+        /* Carousel Styles */
+        .carousel-section {
+            padding: 2rem 0;
+            background: #fff;
+        }
+
+        .carousel-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .glide__slide {
+            height: 400px;
+            position: relative;
+        }
+
+        .glide__slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+        }
+
+        .slide-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .story-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2ea44f;
+        }
+
+        .story-content {
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #2ea44f;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-brand h1 {
+                font-size: 1.2rem;
+            }
+
+            .glide__slide {
+                height: 300px;
+            }
+
+            .slide-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .story-title {
+                font-size: 1.5rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glide__slide {
+                height: 200px;
+            }
+
+            .slide-content h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border-top: 1px solid #eee;
+            z-index: 100;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">
+                <img src="/api/placeholder/40/40" alt="TechStore Logo" class="nav-logo">
+                <h1>Conecta-Canaco</h1>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Carousel Section -->
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <div class="glide">
+                <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                        <li class="glide__slide">
+                            <img src="/imagenes/logo/logo tec 2.jpg" alt="Slide 1">
+                            <div class="slide-content">
+                                <h2>Descubre la última tecnología</h2>
+                                <p>Encuentra los mejores productos tecnológicos al mejor precio</p>
+                            </div>
+                        </li>
+                        <li class="glide__slide">
+                            <img src="/imagenes/logo/logo tec.jpg" alt="Slide 2">
+                            <div class="slide-content">
+                                <h2>Ofertas especiales</h2>
+                                <p>No te pierdas nuestras promociones exclusivas</p>
+                            </div>
+                        </li>
+                        <li class="glide__slide">
+                            <img src="/imagenes/logo/bola2.jpg" alt="Slide 3">
+                            <div class="slide-content">
+                                <h2>Servicio Premium</h2>
+                                <p>Atención personalizada y soporte técnico especializado</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="glide__arrows" data-glide-el="controls">
+                    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="story-card">
+            <div class="story-date">29 de Octubre, 2024</div>
+            <h2 class="story-title">Nuestra Historia</h2>
+            <div class="story-content">
+                <p>TechStore nació en 2010 con una visión clara: hacer que la tecnología de alta calidad sea accesible para todos. Desde entonces, hemos crecido hasta convertirnos en uno de los principales minoristas de tecnología en el país, sirviendo a miles de clientes satisfechos cada año.</p>
+                <br>
+                <p>Nuestra pasión por la innovación y el servicio al cliente nos ha permitido mantener relaciones duraderas con nuestros clientes, quienes confían en nosotros para sus necesidades tecnológicas. Seguimos comprometidos con ofrecer los mejores productos, precios competitivos y un servicio excepcional.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>TechStore</h3>
+                <p>Tu tienda de tecnología de confianza</p>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <nav class="bottom-nav">
+        <a href="/index/index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <div>Inicio</div>
+        </a>
+        <a href="/categorias/categorias.html" class="nav-item">
+            <i class="far fa-heart"></i>
+            <div>Tus productos</div>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-th-large"></i>
+            <div>Departamentos</div>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-th"></i>
+            <div>Servicios</div>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="far fa-user"></i>
+            <div>Cuenta</div>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
+    <script>
+        new Glide('.glide', {
+            type: 'carousel',
+            startAt: 0,
+            perView: 1,
+            autoplay: 3000
+        }).mount()
+    </script>
+</body>
+</html>
